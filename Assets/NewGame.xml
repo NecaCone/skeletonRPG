@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<NewGamePLayersCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AllNewPlayers>
+    <EachPlayer Player_Name="tea" Player_Class="BaseSpearClass" Player_Level="1" Player_Current_XP="0" Player_Required_XP="600" Player_Gold="100" Player_Stamina="18" Player_Endurance="13" Player_Strenght="15" Player_Agility="15" Player_Resistance="15" Player_MagicResistance="5" Player_PosX="4.17" Player_PosY="0.1174861" Player_PosZ="4.82" />
+  </AllNewPlayers>
+</NewGamePLayersCollection>

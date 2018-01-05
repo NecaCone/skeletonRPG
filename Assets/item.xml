@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<ActorCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AllItems>
+    <EachItem name="SkeletonMage" description="Mage range unit" posX="180.5" posy="4.5" posZ="35.3" />
+    <EachItem name="SkeletonWarrior" description="melee combat enemy" posX="175.4" posy="0.8" posZ="23.72" />
+  </AllItems>
+</ActorCollection>

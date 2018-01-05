@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SaveAndLoadObjectXML\Item.cs">
+    <Files>
+      <File FileName="Assets\SaveAndLoadObjectXML\Item.cs" Line="46" Column="1" />
+      <File FileName="Assets\SaveAndLoadObjectXML\ItemContainer.cs" Line="11" Column="28" />
+      <File FileName="Assets\SaveAndLoadObjectXML\GameControler.cs" Line="40" Column="6" />
+      <File FileName="Assets\SaveAndLoadObjectXML\SaveData.cs" Line="31" Column="19" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\HomePC\Documents\New Unity Project 1\Assets\Scripts\SaveAndLoad\SaveAndLoadObject\SaveGameManager.cs" line="48" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
