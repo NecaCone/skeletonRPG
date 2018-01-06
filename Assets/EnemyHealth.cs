@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Mob;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ public class EnemyHealth : MonoBehaviour {
     public Combat player;
     public GameObject Player;
 
-    public Mob target;
+    public Mob targetMele;
+    public RangeMob targetRange;
     public float healthPrecentage;
 
     public Texture2D frame;
@@ -31,12 +33,22 @@ public class EnemyHealth : MonoBehaviour {
 	void Update () {
         if (player.opponent != null)
         {
-            target = player.opponent.GetComponent<Mob>();
-            healthPrecentage = (float)target.healthMob / (float)target.mobMaxHealth;
+            if (player.opponent.GetComponent<Mob>() != null)
+            {
+                targetMele = player.opponent.GetComponent<Mob>();
+                healthPrecentage = (float)targetMele.healthMob / (float)targetMele.mobMaxHealth;
+            }
+            else if(player.opponent.GetComponent<RangeMob>() != null)
+            {
+                targetRange = player.opponent.GetComponent<RangeMob>();
+                healthPrecentage = (float)targetRange.healthMob / (float)targetRange.mobMaxHealth;
+            }
         }
         else
         {
-            target = null;
+            targetMele = null;
+            targetRange = null;
+
             healthPrecentage = 0;
         }
     }
@@ -48,7 +60,7 @@ public class EnemyHealth : MonoBehaviour {
 
     private void OnGUI()
     {
-        if (target != null && player.countDown > 0)
+        if ((targetMele != null || targetRange !=null )&& player.countDown > 0)
         {
             DrawFrame();
             DrawBar();

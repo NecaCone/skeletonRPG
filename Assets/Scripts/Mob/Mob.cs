@@ -26,7 +26,7 @@ public class Mob : MonoBehaviour {
 
     public double impactTime = 0.3;
 
-    public int mobMaxHealth = 50;
+    public int mobMaxHealth =100;
     public int healthMob;
 
     private double fullAttackAnimationLength;
@@ -43,6 +43,7 @@ public class Mob : MonoBehaviour {
         Player = GameObject.FindGameObjectWithTag("Player");
         playerPosition = Player.transform;
         opponent = Player.GetComponent<Combat>();
+        Debug.Log("Skeleton health" + healthMob.ToString());
     }
 
     private void Update()
@@ -64,6 +65,7 @@ public class Mob : MonoBehaviour {
                     // ako je u dometu mob ga napada
                     else
                     {
+                        transform.LookAt(playerPosition.position);
                         // GetComponent<Animation>().Play(mobIdle.name);
                         GetComponent<Animation>().Play(mobAttack.name);
                         Attack();
@@ -89,6 +91,7 @@ public class Mob : MonoBehaviour {
                     // ako je u dometu mob ga napada
                     else
                     {
+                        transform.LookAt(playerPosition.position);
                         // GetComponent<Animation>().Play(mobIdle.name);
                         GetComponent<Animation>().Play(mobAttack.name);
                         Attack();
@@ -115,14 +118,14 @@ public class Mob : MonoBehaviour {
         }
     }
 
-    //dohvata objekat moba 
+    // player dohvata objekat moba 
     void OnMouseOver()
     {
         Player.GetComponent<Combat>().opponent = gameObject;
         Debug.Log("Mis je preko skeletora");
     }
 
-    //ispituje dal je  player  u dometu za jurenje
+    // ispituje dal je  player  u dometu za jurenje
     private bool InRangeForChase()
     {
         if (Vector3.Distance(transform.position, playerPosition.position) > rangeForChase)
@@ -170,8 +173,9 @@ public class Mob : MonoBehaviour {
     public void GetHit(int damage)
     {
         gotHited = false;
+        Debug.Log("Skeleton recive damage" + damage.ToString());
         healthMob = healthMob - damage;
-        if (healthMob < 0)
+        if (healthMob <= 0)
         {
             healthMob = 0;
         }

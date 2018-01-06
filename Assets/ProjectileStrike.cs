@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Fight;
+using Assets.Scripts.Mob;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class ProjectileStrike : MonoBehaviour {
 
     private float speedProjectile;
-    public int damage;
+    private int damage;
     public static bool checkRangeDamage;
     public GameObject particleEffect;
     GameObject player;
@@ -42,7 +43,16 @@ public class ProjectileStrike : MonoBehaviour {
         {
             particleEffect = Resources.Load("Explosion07") as GameObject;
             Instantiate(particleEffect, new Vector3(combat.opponent.transform.position.x, combat.opponent.transform.position.y + 1.5f, combat.opponent.transform.position.z), Quaternion.identity);
-            other.GetComponent<Mob>().GetHit(damage);
+            if (other.GetComponent<Mob>() != null)
+            {
+                other.GetComponent<Mob>().GetHit(damage);
+            }
+            else if (other.GetComponent<RangeMob>() != null)
+            {
+                other.GetComponent<RangeMob>().GetHit(damage);
+            }
+
+            Destroy(gameObject);
         }
     }
 

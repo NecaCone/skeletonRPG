@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Fight;
+using Assets.Scripts.Mob;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -182,11 +183,21 @@ public class Combat : MonoBehaviour {
                 energy = energy - lossOfEnergy;
                 mana = mana - lossOfMana;
 
-                    opponent.GetComponent<Mob>().GetHit(damage);
-
-                if (seconds > 0)
+                if(opponent.GetComponent<Mob>()!=null)
                 {
-                    opponent.GetComponent<Mob>().GetStuned(seconds);
+                    opponent.GetComponent<Mob>().GetHit(damage);
+                    if (seconds > 0)
+                    {
+                        opponent.GetComponent<Mob>().GetStuned(seconds);
+                     }
+                }
+                else if(opponent.GetComponent<RangeMob>()!=null)
+                {
+                    opponent.GetComponent<RangeMob>().GetHit(damage);
+                    if (seconds > 0)
+                    {
+                        opponent.GetComponent<RangeMob>().GetStuned(seconds);
+                    }
                 }
                 // da bi prikazali eksloziju ka telo protivnika  gde prikazujemo eksploziju
                 //ovde pustamo effecat napada
@@ -303,7 +314,7 @@ public class Combat : MonoBehaviour {
         }
     }
 
-    public void combatEscapeCountDown()
+    private void combatEscapeCountDown()
     {
         countDown = countDown - 1;
         if (countDown == 0)
