@@ -115,15 +115,14 @@ public class Mob : MonoBehaviour {
         }
     }
 
-
+    //dohvata objekat moba 
     void OnMouseOver()
     {
         Player.GetComponent<Combat>().opponent = gameObject;
         Debug.Log("Mis je preko skeletora");
-
     }
 
-
+    //ispituje dal je  player  u dometu za jurenje
     private bool InRangeForChase()
     {
         if (Vector3.Distance(transform.position, playerPosition.position) > rangeForChase)
@@ -149,7 +148,8 @@ public class Mob : MonoBehaviour {
         }
     }
 
-
+     // metod koji se poziva da krene da juri player prvo se okrece ka njemu zatim krece se
+     // i poziva animaciju za trcanje
     private void Chase()
     {
         transform.LookAt(playerPosition.position);
@@ -164,7 +164,6 @@ public class Mob : MonoBehaviour {
         {
             opponent.GetHitPlayer(damage);
             impacted = true;
-
         }
     }
 
