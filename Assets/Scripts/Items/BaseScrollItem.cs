@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+
+public enum ScrollTypes
+{
+    INTELECT,
+    ENDURANCE,
+    AGILITY
+}
+
 [System.Serializable]
 public class BaseScrollItem : BaseItem {
 
-	public enum ScrollTypes
-	{
-		INTELECT,
-		ENDURANCE,
-		AGILITY
-	}
+	
 	
 	private ScrollTypes scrollType;
 	private int spellEffect;

@@ -1,26 +1,64 @@
 ﻿using UnityEngine;
 using System.Collections;
-[System.Serializable]
-public class BaseWeaponItem : BaseItem {
 
-	public enum WeaponTypes
-	{
-		SWORD,
-		SPEAR,
-		SHEALD,
-		STAFF
-	}
+public enum WeaponTypes
+{
+    SWORD,
+    SPEAR,
+    SHEALD,
+    STAFF
+}
+[System.Serializable]
+public class BaseWeaponItem : BaseEquipmentItem {
+
 
 	private WeaponTypes weaponType;
-	private int spellEffect;
-
 	public WeaponTypes WeaponType {
 		get{ return weaponType;}
 		set{ weaponType = value;}
 	}
 
-	public int SpellEffect {
-		get{ return spellEffect;}
-		set{ spellEffect = value;}
-	}
+    public BaseWeaponItem()
+    {
+    }
+    public BaseWeaponItem(
+        string itemName,
+        string itemDescription,
+        int itemId,
+        EquipmentTypes equipmentType,
+        ItemTypes itemType,
+        WeaponTypes weaponType,
+        int stackSize,
+        Sprite spriteNeutral,
+        Sprite spriteHighlighted,
+        int stamina,
+        int strenght,
+        int agility,
+        int endurance,
+        int intelect,
+        int resistance,
+        int magicResistance
+        )
+        : base(
+            itemName,
+            itemDescription,
+            itemId,
+            equipmentType,
+            itemType,
+            stackSize,
+            spriteNeutral,
+            spriteHighlighted,
+            stamina,
+            strenght,
+            agility,
+            endurance,
+            intelect,
+            resistance,
+            magicResistance
+         )
+    {
+        this.weaponType = weaponType;
+    }
+
+
 }

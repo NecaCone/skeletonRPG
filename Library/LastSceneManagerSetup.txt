@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/StartNewGame.unity
+- path: Assets/PlayMode.unity
   isLoaded: 1
   isActive: 1

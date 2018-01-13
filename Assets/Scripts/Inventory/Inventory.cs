@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
 
     private RectTransform inventoryRect;
 
-    private int emptySlot;
+    //broj praznih slotova
+    private static int emptySlot;
 
     private float inventoryWidth;
     private float inventoryHeight;
@@ -21,7 +23,22 @@ public class Inventory : MonoBehaviour {
 
     public GameObject slotPrefab;
 
+    private Slot from, to;
+
     private List<GameObject> allSlots;
+
+    public static int EmptySlot
+    {
+        get
+        {
+            return emptySlot;
+        }
+
+        set
+        {
+            emptySlot = value;
+        }
+    }
 
     // Use this for initialization
     void Start () {
@@ -36,8 +53,8 @@ public class Inventory : MonoBehaviour {
     private void CreateLayout()
     {
         allSlots = new List<GameObject>();
-
-        emptySlot = slots;
+        // na pocetku su svi slobodni
+        EmptySlot = slots;
 
         inventoryWidth = (slots / rows) * (slotSize + slotPaddingLeft) + slotPaddingLeft;
         inventoryHeight = rows * (slotSize + slotPaddingTop) + slotPaddingTop;
@@ -77,8 +94,12 @@ public class Inventory : MonoBehaviour {
 
     }
 
-    public bool AddItem(BasePotionItem item)
+
+
+    public bool AddItemPotion(BasePotionItem item)
     {
+        // ako ovaj item ne moze da se stackuje tj da se prelepi preko sebe u slot 
+        //onda ga postavljamo na novi slot
         if (item.StackSize == 1)
         {
             PlaceEmpty(item);
@@ -86,20 +107,27 @@ public class Inventory : MonoBehaviour {
         }
         else
         {
+            //u slucaju da moze da se stavi preko sebe onda idemo ovako
             foreach (GameObject slot  in allSlots)
             {
+                //dohbata slot kalsu
                 Slot tmp = slot.GetComponent<Slot>();
+                //pitamo dal je  slot prazan
+                // ako nije a moze da se stackuje
                 if (!tmp.IsEmpty)
                 {
+                    //
                     if (tmp.CurrentItem.ItemType == item.ItemType && tmp.isAvailabele)
                     {
-                        tmp.AddItem(item);
+                        tmp.AddPotionItem(item);
                         tmp.CurrentItem.StackSize--;
                         return true;
                     }
                 }
             }
-            if (emptySlot > 0)
+            //ako nismo nasli da postavimo item koji moze da se postavi preko drugog onda trazimo novi 
+            //slobodan slot i postavljamo ga tu
+            if (EmptySlot > 0)
             {
                 PlaceEmpty(item);
             }
@@ -107,21 +135,61 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 
+    //ova funkcija ce da preleti kroz sve objekte u slotovima i kad nadje slobodan slot tu ce ubaciti item
     private bool PlaceEmpty(BasePotionItem item)
     {
-        if (emptySlot > 0)
+        // ako je broj praznih slotova  veci od nula
+        if (EmptySlot > 0)
         {
+            //za svaki slot u slotovima
             foreach (GameObject slot in allSlots)
             {
+                //dohvati komponentu slot
                 Slot tmp = slot.GetComponent<Slot>();
+                //i ukoliko je prazan
                 if (tmp.IsEmpty)
                 {
-                    tmp.AddItem(item);
-                    emptySlot--;
+                    //pozivamo da se doda item
+                    tmp.AddPotionItem(item);
+                    //smanjujemo broj slotova
+                    EmptySlot--;
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public void MoveItem(GameObject clicked)
+    {
+        if (from == null)
+        {
+            if (!clicked.GetComponent<Slot>().IsEmpty)
+            {
+                from = clicked.GetComponent<Slot>();
+                from.GetComponent<Image>().color = Color.red;
+            }
+        }
+        else if (to == null)
+        {
+            to = clicked.GetComponent<Slot>();
+        }
+        if (to != null && from != null)
+        {
+            Stack<BasePotionItem> tmpTo = new Stack<BasePotionItem>(to.Potionitems);
+            to.AddPotionItems(from.Potionitems);
+            if (tmpTo.Count == 0)
+            {
+                from.ClearSlot();
+            }
+            else
+            {
+                from.AddPotionItems(tmpTo);
+            }
+            from.GetComponent<Image>().color = Color.white;
+            to = null;
+            from = null;
+        }
+
     }
 }

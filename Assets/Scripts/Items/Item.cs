@@ -8,16 +8,14 @@ namespace Assets.Scripts.Items
 {
     public class Item : MonoBehaviour
     {
-
         GameObject Player;
-
         public BasePotionItem basePotionItem;
-
+        public BaseWeaponItem baseWeaponItem;
+        
         public Sprite spriteNeutral;
         public Sprite spriteHighlighted;
 
         public int maxSize;
-
         private string caser;
 
         private void Start()
@@ -33,81 +31,34 @@ namespace Assets.Scripts.Items
         public void OnMouseDown()
         {
             ClickToMove.pickingMode = true;
-            if (gameObject.name == "Health" || gameObject.name == "Mana")
+            if (gameObject.name != string.Empty)
             {
                 caser = gameObject.name;
-                switch (caser)
-                {
-                    case "Mana":
-                        basePotionItem.PotionType = PotionTypes.ENDURANCE;
-                        basePotionItem.Agility = 0;
-                        basePotionItem.Strenght = 0;
-                        basePotionItem.Stamina = 0;
-                        basePotionItem.Intelect = 0;
-                        basePotionItem.Endurance = 50;
-                        basePotionItem.SpellEffect = 0;
-                        basePotionItem.ItemID = 0;
-                        basePotionItem.ItemDescription = "";
-                        basePotionItem.ItemName = "Mana";
-                        basePotionItem.ItemType = ItemTypes.POTION;
-                        basePotionItem.SpriteNeutral = spriteNeutral;
-                        basePotionItem.SpriteHighlighted = spriteHighlighted;
-                        basePotionItem.StackSize = maxSize;
-                        break;
-                    case "Health":
-                        basePotionItem.PotionType = PotionTypes.HEALTH;
-                        basePotionItem.Agility = 0;
-                        basePotionItem.Strenght = 0;
-                        basePotionItem.Stamina = 50;
-                        basePotionItem.Intelect = 0;
-                        basePotionItem.Endurance = 0;
-                        basePotionItem.SpellEffect = 0;
-                        basePotionItem.ItemID = 0;
-                        basePotionItem.ItemDescription = "";
-                        basePotionItem.ItemName = "Health";
-                        basePotionItem.ItemType = ItemTypes.POTION;
-                        basePotionItem.SpriteNeutral = spriteNeutral;
-                        basePotionItem.SpriteHighlighted = spriteHighlighted;
-                        basePotionItem.StackSize = maxSize;
-                        break;
-                }
+                CreateClickedItem(caser);
             }
-            basePotionItem = new BasePotionItem(
-                basePotionItem.ItemName, 
-                basePotionItem.ItemDescription,
-                basePotionItem.ItemID, 
-                basePotionItem.Stamina, 
-                basePotionItem.Endurance, 
-                basePotionItem.Strenght, 
-                basePotionItem.Intelect, 
-                basePotionItem.Agility, 
-                basePotionItem.PotionType,
-                basePotionItem.SpellEffect, 
-                basePotionItem.ItemType, 
-                basePotionItem.SpriteNeutral,
-                basePotionItem.SpriteHighlighted, 
-                basePotionItem.StackSize);
+            basePotionItem = CreateNewPotion.newPotion;
 
             Player.GetComponent<ClickToMove>().item = gameObject;
         }
-
-        public void Use()
+        
+        void CreateClickedItem(string caser)
         {
-            switch (basePotionItem.PotionType)
+            switch (caser)
             {
-                case PotionTypes.HEALTH:
-                    Debug.Log("Used health");
+                case "Mana":
+                    CreateNewPotion.CreatePotion(1,spriteNeutral,spriteHighlighted, maxSize);
                     break;
-                case PotionTypes.ENDURANCE:
-                    Debug.Log("Used endurance");
+                case "Health":
+                    CreateNewPotion.CreatePotion(2, spriteNeutral, spriteHighlighted, maxSize);
                     break;
-                case PotionTypes.STRENGHT:
+                case "Strenght":
+                    CreateNewPotion.CreatePotion(3, spriteNeutral, spriteHighlighted, maxSize);
                     break;
-                case PotionTypes.AGILITY:
+                case "Agility":
+                    CreateNewPotion.CreatePotion(4, spriteNeutral, spriteHighlighted,maxSize);
                     break;
             }
         }
-
 
     }
 }

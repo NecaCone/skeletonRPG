@@ -136,7 +136,7 @@ public class ClickToMove : MonoBehaviour
         {
             basePotionItem = item.GetComponent<Item>().basePotionItem;
             transform.LookAt(item.transform.position);
-            inventory.AddItem(basePotionItem);
+            inventory.AddItemPotion(basePotionItem);
         }
     }
     bool InRange()
