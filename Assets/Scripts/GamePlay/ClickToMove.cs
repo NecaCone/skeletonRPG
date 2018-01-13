@@ -1,12 +1,21 @@
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Fight;
+using Assets.Scripts.Items;
 
 public class ClickToMove : MonoBehaviour
 {
     private float speed;
     public Vector3 position;
     public static Vector3 currsorPosition;
+
+    private float rangeItemPick = 2f;
+
+    public Inventory inventory;
+    public BasePotionItem basePotionItem;
+    public GameObject item;
+    private GameObject InventoryObject;
+    private Transform itemPosition;
 
     public CharacterController controller;
     public AnimationClip runAnimation;
@@ -15,38 +24,50 @@ public class ClickToMove : MonoBehaviour
 
     public static bool attackMode;
     public static bool dieMode;
+    public static bool pickingMode;
+    public static bool ifIsBusy;
 
     public static bool checkSpeedOnce;
 
     // Use this for initialization
     void Start()
     {
+        InventoryObject = GameObject.FindGameObjectWithTag("Inventory");
+        inventory = InventoryObject.GetComponent<Inventory>();
         position = transform.position; // da se ne krece kad igra pocne da ne ludi ko retard
         checkSpeedOnce = false;
+        ifIsBusy = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         CurrsosLocatePosition();
-
-        if (!attackMode&&!dieMode)
+        if (!ifIsBusy)
         {
-            if (Input.GetMouseButton(0))
+            if (!attackMode && !dieMode && !pickingMode)
             {
-                //Lociraj gde je igrac kliknuo na ekranu 
-                LocatePosition();
+                if (Input.GetMouseButton(0))
+                {
+                    //Lociraj gde je igrac kliknuo na ekranu 
+                    LocatePosition();
+                }
+                //Pomeri igraca gde je kliknuto		
+                MoveToPosition();
             }
-            //Pomeri igraca gde je kliknuto		
-            MoveToPosition();
-        }
-        else
-        {
-        }
-        if (!checkSpeedOnce)
-        {
-            CheckSpeed();
-            checkSpeedOnce = true;
+            else
+            {
+                if (pickingMode)
+                {
+                    PickUpItem();
+                    pickingMode =false;
+                }
+            }
+            if (!checkSpeedOnce)
+            {
+                CheckSpeed();
+                checkSpeedOnce = true;
+            }
         }
         Debug.Log(speed);
     }
@@ -62,10 +83,12 @@ public class ClickToMove : MonoBehaviour
         //kazemo trenutni ray na koji se nalazimo, i hit mesto gde je kliknuto su u 1000units rastojanja
         if (Physics.Raycast(ray, out hit, 1000))
         {
-            if (hit.collider.tag != "Player"&&hit.collider.tag!="Enemy")
+           if (hit.collider.tag != "Player"&&hit.collider.tag!="Enemy")
             { // ako nije kliknuo na sebe onda mu dodajem poziciju
                 position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
             }
+            
+            
         }
     }
     void CurrsosLocatePosition()
@@ -106,6 +129,27 @@ public class ClickToMove : MonoBehaviour
         }
     }
 
+    void PickUpItem()
+    {
+        itemPosition = item.transform;
+        if (InRange())
+        {
+            basePotionItem = item.GetComponent<Item>().basePotionItem;
+            transform.LookAt(item.transform.position);
+            inventory.AddItem(basePotionItem);
+        }
+    }
+    bool InRange()
+    {
+        if (Vector3.Distance(itemPosition.position, transform.position) <= rangeItemPick)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     void CheckSpeed()
     {
         speed = 0;

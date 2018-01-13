@@ -11,7 +11,7 @@ public class CreateNewScroll : MonoBehaviour {
 	
 	void Start()
 	{
-		CreateScroll();
+		//CreateScroll();
 	}
 	
 	public void CreateScroll()

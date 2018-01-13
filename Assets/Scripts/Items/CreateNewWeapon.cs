@@ -12,7 +12,7 @@ public class CreateNewWeapon : MonoBehaviour {
 
 	void Start()
 	{
-		CreateWeapon();
+		//CreateWeapon();
 
 	}
 

@@ -232,6 +232,7 @@
     <Compile Include="Assets\aktivacija.cs" />
     <Compile Include="Assets\ArrowStrike.cs" />
     <Compile Include="Assets\EnemyHealth.cs" />
+    <Compile Include="Assets\HandleCanvas.cs" />
     <Compile Include="Assets\PlayerEnergy.cs" />
     <Compile Include="Assets\PlayerHealth.cs" />
     <Compile Include="Assets\PlayerMana.cs" />
@@ -258,6 +259,8 @@
     <Compile Include="Assets\Scripts\GameControler\PlayerStatsData.cs" />
     <Compile Include="Assets\Scripts\GameInformation\GameInformation.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ClickToMove.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Slot.cs" />
     <Compile Include="Assets\Scripts\Items\BaseEquipmentItem.cs" />
     <Compile Include="Assets\Scripts\Items\BaseItem.cs" />
     <Compile Include="Assets\Scripts\Items\BasePotionItem.cs" />
@@ -268,6 +271,7 @@
     <Compile Include="Assets\Scripts\Items\CreateNewScroll.cs" />
     <Compile Include="Assets\Scripts\Items\CreateNewWeapon.cs" />
     <Compile Include="Assets\Scripts\Items\GameItemDataBase.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\ItemsList.cs" />
     <Compile Include="Assets\Scripts\LevelingSystem\IncreaseExperience.cs" />
     <Compile Include="Assets\Scripts\LevelingSystem\LevelUp.cs" />

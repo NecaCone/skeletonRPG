@@ -8,6 +8,7 @@ using UnityEngine;
 public class Combat : MonoBehaviour {
 
     public GameObject opponent;
+
     public AnimationClip attackAnimation;
     public AnimationClip dieAnimaton;
     private Transform opponentPosition;
@@ -220,6 +221,7 @@ public class Combat : MonoBehaviour {
             }
         }
     }
+
     bool InRange()
     {
         if (Vector3.Distance(opponentPosition.position, transform.position) <= range)

@@ -25,12 +25,14 @@ public class DisplayPanel : MonoBehaviour {
                 panel.SetActive(true);
                 PanelManager.commitedPoints = true;
                 PanelManager.baseStats = true;
+                ClickToMove.ifIsBusy = true;
                 panelManager.PopulatePanel();
             }
             else
             {
                 panel.SetActive(false);
                 PanelManager.commitedPoints = false;
+                ClickToMove.ifIsBusy = false;
             }
         }
         

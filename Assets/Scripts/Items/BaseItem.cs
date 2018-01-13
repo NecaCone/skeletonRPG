@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+public enum ItemTypes
+{
+    EQUIPMENT,
+    WEAPON,
+    SCROLL,
+    POTION
+};
 
 [System.Serializable]
 public abstract class BaseItem{
@@ -17,32 +24,43 @@ public abstract class BaseItem{
 	private int resistance; //povecava odbranu na 
 	private int magicResistance; // 
 
+    private int stackSize;
+    private ItemTypes itemType;
+    private Sprite spriteNeutral;
+    private Sprite spriteHighlighted;
 
-	public enum ItemTypes
+
+
+    public BaseItem (){}
+
+	public BaseItem(
+        string itemName,
+        string itemDescription, 
+        int itemId, 
+        int stamina,
+        int endurance,
+        int strenght, 
+        int intelect,
+        int agility,
+        ItemTypes itemType,
+        int stackSize,
+        Sprite spriteNeutral, 
+        Sprite spriteHighlighted
+        )
 	{
-		EQUIPMENT,
-		WEAPON,
-		SCROLL,
-		POTION
-	};
-
-	private ItemTypes itemType;
-
-	public BaseItem (){}
-
-	public BaseItem(string itemName,string itemDescription, int itemId, int stamina,int endurance, int strenght, int intelect,int agility,int resistane,int magicResistance)
-	{
-		itemName = this.itemName;
-		itemDescription = this.ItemDescription;
-		itemId = this.itemID;
-		stamina = this.stamina;
-		endurance = this.endurance;
-		strenght = this.strenght;
-		intelect = this.intelect;
-		agility = this.agility;
-		resistane = this.resistance;
-		magicResistance = this.magicResistance;
-	}
+        this.itemName = itemName;
+        this.itemDescription = itemDescription;
+        this.itemID = ItemID;
+        this.stamina = stamina;
+        this.endurance = endurance;
+        this.strenght = strenght;
+        this.intelect = intelect;
+        this.agility = agility;
+        this.itemType = itemType;
+        this.stackSize = stackSize;
+        this.spriteNeutral = spriteNeutral;
+        this.spriteHighlighted = spriteHighlighted;
+    }
 
 
 	public string ItemName {
@@ -50,9 +68,20 @@ public abstract class BaseItem{
 				set{ itemName = value;}
 	}
 
+    public int StackSize
+    {
+        get
+        {
+            return stackSize;
+        }
 
+        set
+        {
+            stackSize = value;
+        }
+    }
 
-	public string ItemDescription {
+    public string ItemDescription {
 		get{ return itemDescription;}
 		set{ itemDescription = value;}
 	}
@@ -88,13 +117,31 @@ public abstract class BaseItem{
 		get{return agility;}
 		set{agility = value;}
 	}
-	public int Resistance {
-		get{return resistance;}
-		set{resistance = value;}
-	}
-	public int MagicResistance {
-		get{return magicResistance;}
-		set{magicResistance = value;}
-	}
 
+    //dohvat  sliku tj prefab itema kako on izgleda u inventaru preko njegovog objekta
+    public Sprite SpriteNeutral
+    {
+        get
+        {
+            return spriteNeutral;
+        }
+
+        set
+        {
+            spriteNeutral = value;
+        }
+    }
+
+    public Sprite SpriteHighlighted
+    {
+        get
+        {
+            return spriteHighlighted;
+        }
+
+        set
+        {
+            spriteHighlighted = value;
+        }
+    }
 }

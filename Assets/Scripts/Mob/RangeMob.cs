@@ -241,7 +241,7 @@ namespace Assets.Scripts.Mob
         // uzimamo radnom broj projektila koje protivnik baca na igraca
         void NumOfProjectiles()
         {
-           numOfProjectiles = UnityEngine.Random.Range(1,3);
+           numOfProjectiles = UnityEngine.Random.Range(1,2);
         }
 
         public void GetHit(int damage)
